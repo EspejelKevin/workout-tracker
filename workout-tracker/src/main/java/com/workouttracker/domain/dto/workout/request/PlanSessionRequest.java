@@ -24,5 +24,5 @@ public class PlanSessionRequest {
     @JsonProperty("plan_id")
     @NotNull(message = "plan_id is required")
     @Min(value = 1, message = "plan_id must be greater than 0")
-    private Long planID;
+    private Long planId;
 }

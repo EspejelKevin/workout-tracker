@@ -26,5 +26,5 @@ public class ExerciseRequest {
     @JsonProperty("category_id")
     @NotNull(message = "category_id is required")
     @Min(value = 1, message = "category_id must be greater than 0")
-    private Long categoryID;
+    private Long categoryId;
 }

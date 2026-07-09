@@ -16,5 +16,5 @@ public class SessionExerciseRequest {
     @JsonProperty("exercise_id")
     @NotNull(message = "exercise_id is required")
     @Min(value = 1, message = "exercise_id must be greater than 0")
-    private Long exerciseID;
+    private Long exerciseId;
 }

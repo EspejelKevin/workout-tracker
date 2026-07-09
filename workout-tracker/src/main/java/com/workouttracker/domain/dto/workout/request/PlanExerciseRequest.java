@@ -21,12 +21,12 @@ public class PlanExerciseRequest {
     @JsonProperty("exercise_id")
     @NotNull(message = "exercise_id is required")
     @Min(value = 1, message = "exercise_id must be greater than 0")
-    private Long exerciseID;
+    private Long exerciseId;
 
     @JsonProperty("plan_id")
     @NotNull(message = "plan_id is required")
     @Min(value = 1, message = "plan_id must be greater than 0")
-    private Long planID;
+    private Long planId;
 
     private Integer sets;
     private Integer repetitions;
