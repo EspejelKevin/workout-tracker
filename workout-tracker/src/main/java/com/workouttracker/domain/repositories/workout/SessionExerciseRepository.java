@@ -11,6 +11,5 @@ public interface SessionExerciseRepository {
     Optional<SessionExercise> findByIdAndUserId(Long id, Long userId);
     Optional<SessionExercise> findByExerciseIdAndUserId(Long exerciseId, Long userId);
     SessionExercise update(SessionExercise sessionExercise);
-    SessionExercise updateStatusById(Long id, String status);
     void deleteByIdAndUserId(Long id, Long userId);
 }

@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Component
 public class PlanMySQLRepository implements PlanRepository {
-    private final MySQLRepository mySQLRepository;
+    private final IPlanMySQLRepository mySQLRepository;
 
-    public PlanMySQLRepository(MySQLRepository mySQLRepository) {
+    public PlanMySQLRepository(IPlanMySQLRepository mySQLRepository) {
         this.mySQLRepository = mySQLRepository;
     }
 

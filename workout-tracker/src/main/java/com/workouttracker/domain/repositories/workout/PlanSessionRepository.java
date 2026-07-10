@@ -11,6 +11,5 @@ public interface PlanSessionRepository {
     Optional<PlanSession> findByIdAndUserId(Long id, Long userId);
     Optional<PlanSession> findByPlanIdAndUserId(Long planId, Long userId);
     PlanSession update(PlanSession planSession);
-    PlanSession updateStatusById(Long id, String status);
     void deleteByIdAndUserId(Long id, Long userId);
 }

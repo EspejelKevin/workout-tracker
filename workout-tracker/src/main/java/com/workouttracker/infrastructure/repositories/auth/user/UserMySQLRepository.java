@@ -1,16 +1,16 @@
-package com.workouttracker.infrastructure.repositories.auth;
+package com.workouttracker.infrastructure.repositories.auth.user;
 
 import com.workouttracker.domain.entities.auth.User;
-import com.workouttracker.domain.repositories.auth.AuthRepository;
+import com.workouttracker.domain.repositories.auth.UserRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
-public class AuthMySQLRepository implements AuthRepository {
-    private final MySQLRepository mySQLRepository;
+public class UserMySQLRepository implements UserRepository {
+    private final IUserMySQLRepository mySQLRepository;
 
-    public AuthMySQLRepository(MySQLRepository mySQLRepository) {
+    public UserMySQLRepository(IUserMySQLRepository mySQLRepository) {
         this.mySQLRepository = mySQLRepository;
     }
 

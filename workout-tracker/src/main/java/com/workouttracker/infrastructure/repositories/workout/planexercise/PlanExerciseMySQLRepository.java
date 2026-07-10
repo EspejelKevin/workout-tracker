@@ -8,9 +8,9 @@ import java.util.List;
 
 @Component
 public class PlanExerciseMySQLRepository implements PlanExerciseRepository {
-    private final MySQLRepository mySQLRepository;
+    private final IPlanExerciseMySQLRepository mySQLRepository;
 
-    public PlanExerciseMySQLRepository(MySQLRepository mySQLRepository) {
+    public PlanExerciseMySQLRepository(IPlanExerciseMySQLRepository mySQLRepository) {
         this.mySQLRepository = mySQLRepository;
     }
 
@@ -20,8 +20,8 @@ public class PlanExerciseMySQLRepository implements PlanExerciseRepository {
     }
 
     @Override
-    public List<PlanExercise> findAllByPlanIdAndUserId(Long planId, Long userId) {
-        return this.mySQLRepository.findAllByPlanIdAndUserId(planId, userId);
+    public List<PlanExercise> findAllByPlanIdAndPlanUserId(Long planId, Long userId) {
+        return this.mySQLRepository.findAllByPlanIdAndPlanUserId(planId, userId);
     }
 
     @Override

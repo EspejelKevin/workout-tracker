@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Component
 public class PlanSessionMySQLRepository implements PlanSessionRepository {
-    private final MySQLRepository mySQLRepository;
+    private final IPlanSessionMySQLRepository mySQLRepository;
 
-    public PlanSessionMySQLRepository(MySQLRepository mySQLRepository) {
+    public PlanSessionMySQLRepository(IPlanSessionMySQLRepository mySQLRepository) {
         this.mySQLRepository = mySQLRepository;
     }
 
@@ -38,11 +38,6 @@ public class PlanSessionMySQLRepository implements PlanSessionRepository {
     @Override
     public PlanSession update(PlanSession planSession) {
         return this.mySQLRepository.save(planSession);
-    }
-
-    @Override
-    public PlanSession updateStatusById(Long id, String status) {
-        return this.mySQLRepository.updateStatusById(id, status);
     }
 
     @Override

@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Component
 public class ExerciseMySQLRepository implements ExerciseRepository {
-    private final MySQLRepository mySQLRepository;
+    private final IExerciseMySQLRepository mySQLRepository;
 
-    public ExerciseMySQLRepository(MySQLRepository mySQLRepository) {
+    public ExerciseMySQLRepository(IExerciseMySQLRepository mySQLRepository) {
         this.mySQLRepository = mySQLRepository;
     }
 

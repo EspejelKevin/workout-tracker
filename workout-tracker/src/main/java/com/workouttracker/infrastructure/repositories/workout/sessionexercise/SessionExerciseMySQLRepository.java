@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Component
 public class SessionExerciseMySQLRepository implements SessionExerciseRepository {
-    private final MySQLRepository mySQLRepository;
+    private final ISessionExerciseMySQLRepository mySQLRepository;
 
-    public SessionExerciseMySQLRepository(MySQLRepository mySQLRepository) {
+    public SessionExerciseMySQLRepository(ISessionExerciseMySQLRepository mySQLRepository) {
         this.mySQLRepository = mySQLRepository;
     }
 
@@ -38,11 +38,6 @@ public class SessionExerciseMySQLRepository implements SessionExerciseRepository
     @Override
     public SessionExercise update(SessionExercise sessionExercise) {
         return this.mySQLRepository.save(sessionExercise);
-    }
-
-    @Override
-    public SessionExercise updateStatusById(Long id, String status) {
-        return this.mySQLRepository.updateStatusById(id, status);
     }
 
     @Override
