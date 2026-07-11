@@ -20,6 +20,11 @@ public class UserMySQLRepository implements UserRepository {
     }
 
     @Override
+    public Optional<User> findById(Long userId) {
+        return this.mySQLRepository.findById(userId);
+    }
+
+    @Override
     public Optional<User> findByEmail(String email) {
         return this.mySQLRepository.findByEmail(email);
     }
