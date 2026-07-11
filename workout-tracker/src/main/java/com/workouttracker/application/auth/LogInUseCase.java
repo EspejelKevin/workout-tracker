@@ -4,6 +4,10 @@ import com.workouttracker.domain.dto.auth.request.LogInRequest;
 import com.workouttracker.domain.dto.response.Response;
 import com.workouttracker.domain.entities.auth.User;
 import com.workouttracker.domain.repositories.auth.UserRepository;
+import com.workouttracker.shared.jwt.JwtUtils;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -12,36 +16,32 @@ import java.util.UUID;
 
 @Service
 public class LogInUseCase {
+    private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
+    private final JwtUtils jwtUtils;
 
-    public LogInUseCase(UserRepository userRepository) {
+    public LogInUseCase(AuthenticationManager authenticationManager,
+                        UserRepository userRepository, JwtUtils jwtUtils) {
+        this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
+        this.jwtUtils = jwtUtils;
     }
 
     public Response execute(LogInRequest request) {
         String transactionId = UUID.randomUUID().toString();
 
-        User user = this.userRepository.findByEmail(request.getEmail())
+        Authentication authentication = this.authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+
+        User user = this.userRepository.findByEmail(authentication.getName())
                 .orElseThrow(() -> new RuntimeException("User not found: " + request.getEmail()));
 
-        if (!this.isValidPassword(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid password for user: " + request.getEmail());
-        }
-
-        String token = this.generateToken("secretkey", "REGULAR_USER", user.getId());
+        String token = this.jwtUtils.generateToken(user);
 
         Map<String, String> data = new HashMap<>();
         data.put("message", "LogIn exitoso");
         data.put("token", token);
 
         return new Response(data, transactionId);
-    }
-
-    private boolean isValidPassword(String password, String hashedPassword) {
-        return String.format("password%s", password).equals(hashedPassword);
-    }
-
-    private String generateToken(String key, String role, Long userId) {
-        return String.format("mock token %s%s%d", key, role, userId);
     }
 }

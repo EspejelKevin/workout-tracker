@@ -6,6 +6,7 @@ import com.workouttracker.domain.entities.auth.Role;
 import com.workouttracker.domain.entities.auth.User;
 import com.workouttracker.domain.repositories.auth.UserRepository;
 import com.workouttracker.domain.repositories.auth.RoleRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -16,10 +17,13 @@ import java.util.UUID;
 public class SignUpUseCase {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public SignUpUseCase(UserRepository userRepository, RoleRepository roleRepository) {
+    public SignUpUseCase(UserRepository userRepository, RoleRepository roleRepository,
+                         PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Response execute(SignUpRequest request) {
@@ -43,7 +47,7 @@ public class SignUpUseCase {
         user.setLastname(request.getLastname());
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
-        user.setPassword(this.hashPassword(request.getPassword()));
+        user.setPassword(this.passwordEncoder.encode(request.getPassword()));
         user.setRole(role);
 
         this.userRepository.save(user);
@@ -52,9 +56,5 @@ public class SignUpUseCase {
         data.put("message", "SignUp exitoso");
 
         return new Response(data, transactionId);
-    }
-
-    private String hashPassword(String password) {
-        return String.format("password%s", password);
     }
 }
